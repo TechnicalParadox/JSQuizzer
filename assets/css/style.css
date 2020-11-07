@@ -1,0 +1,97 @@
+:root
+{
+  --pinky: #e83ce3;
+  --purpley: #370f6b;
+}
+
+*
+{
+  margin: 0;
+}
+
+header /* make grid to easily align highscore link to left and timer to right */
+{
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.lnk_hs /* highscores link; remove default link styling and make pinky */
+{
+  text-decoration: none;
+  color: var(--pinky);
+}
+
+.lnk_hs:hover /* indicate that user is hovering over link by making bolder */
+{
+  font-weight: bolder;
+}
+
+.txt_timer /* display timer to right of header */
+{
+  text-align: right;
+}
+
+main
+{
+  padding: 100px;
+}
+
+button
+{
+  border-style: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  color: white;
+  background-color: var(--purpley);
+}
+
+button:hover
+{
+  background-color: var(--pinky);
+}
+
+.starter /* center starter content and style */
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.starter h1, .starter p, .starter button
+{
+  padding: 10px;
+}
+
+.starter p
+{
+  font-size: 20px;
+}
+
+.quizzer
+{
+  display: flex;
+  flex-direction: column;
+}
+
+.quizzer .txt_question
+{
+  padding-bottom: 10px;
+}
+
+.quizzer button /* Keep Quizzer buttons same width */
+{
+  width: 200px;
+  margin-bottom: 10px;
+}
+
+.quizzer .txt_output
+{
+  padding-top: 10px;
+}
+
+/* DISABLE DURING HTML DEVELOPMENT */
+.quizzer, .ender /*hides quizzer/ender so that only starter is shown to user by default*/
+{
+  display: none;
+}
