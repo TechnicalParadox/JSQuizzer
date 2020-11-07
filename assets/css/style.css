@@ -93,7 +93,7 @@ button:hover
 }
 
 /* DISABLE DURING HTML DEVELOPMENT */
-.quizzer, .ender /*hides quizzer/ender so that only starter is shown to user by default*//*
+.quizzer, .ender /*hides quizzer/ender so that only starter is shown to user by default*/
 {
   display: none;
 }
