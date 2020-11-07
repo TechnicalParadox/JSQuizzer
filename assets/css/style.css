@@ -88,10 +88,12 @@ button:hover
 .quizzer .txt_output
 {
   padding-top: 10px;
+  color: gray;
+  font-style: italic;
 }
 
 /* DISABLE DURING HTML DEVELOPMENT */
-.quizzer, .ender /*hides quizzer/ender so that only starter is shown to user by default*/
+.quizzer, .ender /*hides quizzer/ender so that only starter is shown to user by default*//*
 {
   display: none;
 }
