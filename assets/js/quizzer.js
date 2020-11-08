@@ -1,4 +1,4 @@
-// REFERENCES
+// GLOBAL VARIABLES
 // Define array of 10 questions
 let questions =
 [
@@ -64,6 +64,9 @@ let questions =
   }
 ]
 
+/** @type {Number} The users final score, set at the end of the quiz */
+var userFinalScore = 0;
+
 // Store references to necessary DOM objects
 var lnk_viewHS, txt_timer, div_starter, div_quizzer, div_ender, btn_start,
 txt_question, btn_answer1, btn_answer2, btn_answer3, btn_answer4, txt_output,
@@ -85,7 +88,7 @@ txt_finalScore = document.getElementById("txt_finalScore");
 in_username = document.getElementById("in_username");
 btn_submitScore = document.getElementById("btn_submitScore");
 
-// Functions
+// FUNCTIONS
 
 function startQuiz()
 {
@@ -94,7 +97,11 @@ function startQuiz()
   quizUser(getQuiz);
 }
 
-/** @param {integer} numQuestions - Num of questions you want added (max of questions.length)*/
+/**
+ * randomly pull questions from the questions array to use in the quiz
+ * @param  {Number} numQuestions the number of questions to pull
+ * @return {Array}              the array of question objects
+ */
 function getQuiz(numQuestions)
 {
   if (numQuestions > questions.length) // Validate parameter
@@ -110,14 +117,25 @@ function getQuiz(numQuestions)
   return quiz;
 }
 
+/**
+ * quizzes the user and then passes the final score/calls endQuiz
+ * @param  {Array} quiz the question objects to ask the user
+ * @return {undefined}      calls endQuiz, no return
+ */
 function quizUser(quiz)
 {
+  console.log(typeof(quiz));
   /** @type {float} Timer/score */
   let timer = 60.000;
   // TODO timer/quiz user
   endQuiz(timer);
 }
 
+/**
+ * Hides quizzer, shows ender, displays final score to username
+ * @param  {Number} finalScore users final scored
+ * @return {undefined}
+ */
 function endQuiz(finalScore)
 {
   div_quizzer.style.display = "none"; // Hide quizzer after quiz
@@ -137,7 +155,7 @@ function submitScore()
 }
 
 // MAIN LOGIC
-var userFinalScore;
+
 // Hide Quizer and Ender from the user
 div_quizzer.style.display = "none"; // from ../css/style.css - default of "flex"
 div_ender.style.display = "none";
