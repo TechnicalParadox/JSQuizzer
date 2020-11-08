@@ -1,5 +1,6 @@
 // GLOBAL VARIABLES
-// Define array of 10 questions
+/** @type {Array} An array of objects that each contain a question, options,
+answer key, and function to pull the answer string */
 let questions =
 [
   {
