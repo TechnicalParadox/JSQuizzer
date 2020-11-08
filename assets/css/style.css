@@ -27,7 +27,7 @@ header /* make grid to easily align highscore link to left and timer to right */
   font-weight: bolder;
 }
 
-#txt_timer /* display timer to right of header */
+.timer /* display timer to right of header */
 {
   text-align: right;
 }

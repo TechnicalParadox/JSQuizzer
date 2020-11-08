@@ -124,7 +124,7 @@ function endQuiz(finalScore)
   div_ender.style.display = "initial"; // Show ender
 
   userFinalScore = finalScore.toFixed(3);
-  txt_finalScore.innerHTML = "Your final score is: " +userFinalScore;
+  txt_finalScore.innerHTML = userFinalScore;
 }
 
 function submitScore()
@@ -132,7 +132,7 @@ function submitScore()
   let username = in_username.value; // Get username
   if (username == "") // Validate that username isn't blank
     alert("Please enter a username.");
-  else
+  else {}
     // TODO save score to leaderboard
 }
 
