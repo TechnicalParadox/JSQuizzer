@@ -16,18 +16,18 @@ header /* make grid to easily align highscore link to left and timer to right */
   grid-template-columns: 1fr 1fr;
 }
 
-.lnk_hs /* highscores link; remove default link styling and make pinky */
+#lnk_hs /* highscores link; remove default link styling and make pinky */
 {
   text-decoration: none;
   color: var(--pinky);
 }
 
-.lnk_hs:hover /* indicate that user is hovering over link by making bolder */
+#lnk_hs:hover /* indicate that user is hovering over link by making bolder */
 {
   font-weight: bolder;
 }
 
-.txt_timer /* display timer to right of header */
+#txt_timer /* display timer to right of header */
 {
   text-align: right;
 }
@@ -51,49 +51,43 @@ button:hover
   background-color: var(--pinky);
 }
 
-.starter /* center starter content and style */
+#starter /* center starter content and style */
 {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.starter h1, .starter p, .starter button
+#starter h1, #starter p, #starter button
 {
   padding: 10px;
 }
 
-.starter p
+#starter p
 {
   font-size: 20px;
 }
 
-.quizzer
+#quizzer
 {
   display: flex;
   flex-direction: column;
 }
 
-.quizzer .txt_question
+#quizzer #txt_question
 {
   padding-bottom: 10px;
 }
 
-.quizzer button /* Keep Quizzer buttons same width */
+#quizzer button /* Keep Quizzer buttons same width */
 {
   width: 200px;
   margin-bottom: 10px;
 }
 
-.quizzer .txt_output
+#quizzer #txt_output
 {
   padding-top: 10px;
   color: gray;
   font-style: italic;
-}
-
-/* DISABLE DURING HTML DEVELOPMENT */
-.quizzer, .ender /*hides quizzer/ender so that only starter is shown to user by default*/
-{
-  display: none;
 }

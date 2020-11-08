@@ -10,39 +10,39 @@
 <body>
 <!-- Header with link to high scores & a timer -->
 <header>
-  <a class="lnk_hs" href="">View high scores</a><!-- TODO link to leaderboard -->
-  <p class="txt_timer">Time: XXX</p>
+  <a id="lnk_hs" href="">View high scores</a><!-- TODO link to leaderboard -->
+  <p id="txt_timer">Time: XXX</p>
 </header>
 
 <!-- Main content where user is shown pre-quiz message or quiz -->
 <main>
   <!-- Introduce user to the quiz -->
-  <div class="starter">
+  <div id="starter">
     <h1>Javascript Quizzer!</h1>
     <p>
       When you click start quiz you will be asked 5 random questions about JavaScript. <br>
       Answer the questions within the time limit to be scored and placed on the leaderboard!
     </p>
-    <button class="btn_start">Start Quiz</button>
+    <button clidass="btn_start">Start Quiz</button>
   </div>
 
   <!-- Quiz the user (hidden by default) -->
-  <div class="quizzer">
-    <h1 class="txt_question">QUESTION</h1>
-    <button class="btn_answer1">BUTTON 1</button>
-    <button class="btn_answer2">BUTTON 2</button>
-    <button class="btn_answer3">BUTTON 3</button>
-    <button class="btn_answer4">BUTTON 4</button>
+  <div id="quizzer">
+    <h1 id="txt_question">QUESTION</h1>
+    <button id="btn_answer1">BUTTON 1</button>
+    <button id="btn_answer2">BUTTON 2</button>
+    <button id="btn_answer3">BUTTON 3</button>
+    <button id="btn_answer4">BUTTON 4</button>
     <hr>
-    <h2 class="txt_output">OUTPUT</h2>
+    <h2 id="txt_output">OUTPUT</h2>
   </div>
 
   <!-- End the quiz (hidden by default) -->
-  <div class="ender">
+  <div id="ender">
     <h1>Finished!</h1>
-    <p class="txt_final-score">Your final score is: XXX</p>
-    <input class="in_username" placeholder="username"></input>
-    <button class="btn_submit-score">Submit</button>
+    <p id="txt_finalScore">Your final score is: XXX</p>
+    <input id="in_username" placeholder="username"></input>
+    <button id="btn_submitScore">Submit</button>
   </div>
 </main>
 
