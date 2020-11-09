@@ -174,6 +174,7 @@ function endQuiz(finalScore)
   div_ender.style.display = "initial"; // Show ender
 
   txt_finalScore.innerHTML = finalScore;
+  in_username.value= ""; // Make sure username field is empty
 }
 
 /** Submits uses score/username to the leaderboard */
