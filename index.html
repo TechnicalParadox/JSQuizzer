@@ -11,7 +11,7 @@
 <!-- Header with link to high scores & a timer -->
 <header>
   <a id="lnk_hs" onclick="showLeaderboard()">View high scores</a><!-- TODO link to leaderboard -->
-  <p class="timer">Time: <span id="txt_timer">0.000</span></p>
+  <p class="timer">Time: <span id="txt_timer">0.00</span></p>
 </header>
 
 <!-- Main content where user is shown pre-quiz message or quiz -->
@@ -40,7 +40,7 @@
   <!-- End the quiz (hidden by default w JS) -->
   <div id="ender">
     <h1>Finished!</h1>
-    <p>Your final score is: <span id="txt_finalScore">XX.XXX</span></p>
+    <p>Your final score is: <span id="txt_finalScore">X.XX</span></p>
     <input id="in_username" placeholder="username"></input>
     <button id="btn_submitScore" onclick="submitScore()">Submit</button>
   </div>

@@ -107,9 +107,9 @@ function startQuiz()
   div_quizzer.style.display = "flex"; // Show quizzer div which had default of flex
   questionNum = 1;
   quiz = getQuiz(5);
-  timer = 60.000;
+  timer = 60.00;
   startTimer();
-  txt_timer.innerHTML = timer.toFixed(3);
+  txt_timer.innerHTML = timer.toFixed(2);
   txt_output.innerHTML = "";
   quizUser();
 }
@@ -119,8 +119,8 @@ function startTimer()
 {
   timerInterval = setInterval(function()
   {
-    timer -= .001;
-    txt_timer.innerHTML = timer.toFixed(3);
+    timer -= .01;
+    txt_timer.innerHTML = timer.toFixed(2);
   }, 1);
 }
 
@@ -149,7 +149,7 @@ function quizUser() // TODO Implement actual timer
 {
   if (questionNum > 5)
   {
-    endQuiz(timer.toFixed(3));
+    endQuiz(timer.toFixed(2));
     return;
   }
 
@@ -264,9 +264,9 @@ function showLeaderboard()
     let entry = document.createElement("H3");
     entry.class = "leaderboard-item";
     // Get username from leaderboard by using score/key
-    username = leaderboard.getItem(scores[x].toFixed(3));
+    username = leaderboard.getItem(scores[x].toFixed(2));
     // Populate leaderboard list item (H3) with place #, score (xX.XX), and username
-    entry.innerHTML = x+1 +". " + scores[x].toFixed(3) + " - " + username;
+    entry.innerHTML = x+1 +". " + scores[x].toFixed(2) + " - " + username;
     div_leaderboardList.appendChild(entry); // append leaderboard list item to leaderboard
   }
 }
