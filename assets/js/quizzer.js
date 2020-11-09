@@ -110,6 +110,7 @@ function startQuiz()
   timer = 60.000;
   startTimer();
   txt_timer.innerHTML = timer.toFixed(3);
+  txt_output.innerHTML = "";
   quizUser();
 }
 
