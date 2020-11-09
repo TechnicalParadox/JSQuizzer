@@ -77,6 +77,7 @@ div_starter = document.getElementById("starter");
 div_quizzer = document.getElementById("quizzer");
 div_ender = document.getElementById("ender");
 div_leaderboard = document.getElementById("leaderboard");
+div_leaderboardList = document.getElementById("leaderboard-list");
 btn_start = document.getElementById("btn_start");
 txt_question = document.getElementById("txt_question");
 btn_answer1 = document.getElementById("btn_answer1");
@@ -186,7 +187,7 @@ function submitScore()
     alert("Please enter a username.");
   // Save score to leaderboard
   var leaderboard = window.localStorage;
-  leaderboard.setItem(username, userFinalScore)
+  leaderboard.setItem(userFinalScore, username)
   showLeaderboard(); // Show leaderboard
 
 }
@@ -203,7 +204,30 @@ function showLeaderboard()
   div_ender.style.display = "none";
   div_leaderboard.style.display = "grid" // display leaderboard with default, grid
 
-  // TODO add items to leaderboard
+  // TODO: create leaderboard items for each key in storage
+  let leaderboard = window.localStorage;
+  // get all keys from Leaderboard
+  let keys = Object.keys(leaderboard);
+  // convert keys into array of floats
+  let scores = [];
+  for (let x = 0; x < keys.length; x++)
+  {
+    scores.push(parseFloat(keys[x]));
+  }
+  // sort scores from high -> low
+  scores.sort(function(a,b){return b-a});
+  console.log(scores);
+  // pull key value pairs from leaderboard storage in sorted order and add to Leaderboard
+
+  var username;
+  for (let x = 0; x < scores.length; x++)
+  {
+    var entry = document.createElement("H3");
+    entry.class = "leaderboard-item";
+    username = leaderboard.getItem(scores[x])[1];
+    entry.innerHTML = x+1 +". " + scores[x] + " - " + username;
+    div_leaderboardList.appendChild(entry);
+  }
 }
 
 function goHome()
