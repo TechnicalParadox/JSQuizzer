@@ -2,6 +2,7 @@
 {
   --pinky: #e83ce3;
   --purpley: #370f6b;
+  --notflashy: #a47ba7;
 }
 
 *
@@ -90,4 +91,42 @@ button:hover
   padding-top: 10px;
   color: gray;
   font-style: italic;
+}
+
+#leaderboard h1
+{
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+#leaderboard-list
+{
+  border: 5px solid var(--purpley);
+  border-radius: 5px;
+}
+
+#leaderboard-list h3
+{
+  padding: 10px;
+
+}
+
+#leaderboard-list h3:nth-child(odd)
+{
+  background-color: var(--notflashy);
+}
+
+.leaderboard-btns
+{
+  margin-left: auto;
+  margin-right:auto;
+  width: 50%;
+  padding: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.leaderboard-btns button
+{
+  width: 150px;
 }

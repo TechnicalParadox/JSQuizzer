@@ -35,7 +35,7 @@ let questions =
   },
   {
     "q": "What is the HTML tag under which one can write the JavaScript code?",
-    "o": ["<javascript>", "<script>", "<js>", "<code>"],
+    "o": ["javascript", "script", "js", "code"],
     "a": 1, // o[1] is the answer
     "getAnswer": function() { return this.o[this.a]; }
   },
@@ -46,8 +46,8 @@ let questions =
     "getAnswer": function() { return this.o[this.a]; }
   },
   {
-    "q": "Inside of the <script> tag, how do you link to an external .js file?",
-    "o": ["src=\"<filepath>\"", "href=\"<filepath>\"", "ref=\"<filepath>\"", "path=\"<filepath>\""],
+    "q": "Inside of the script tag, how do you link to an external .js file?",
+    "o": ["src=\"filepath\"", "href=\"filepath\"", "ref=\"filepath\"", "path=\"filepath\""],
     "a": 0, // option 1 is the answer
     "getAnswer": function() { return this.o[this.a]; }
   },
@@ -65,11 +65,10 @@ let questions =
   }
 ]
 
-/** @type {Number} The users final score, set at the end of the quiz */
-var userFinalScore = 0;
+var quiz, questionNum, timer;
 
 // Store references to necessary DOM objects
-var lnk_viewHS, txt_timer, div_starter, div_quizzer, div_ender, btn_start,
+var lnk_viewHS, txt_timer, div_starter, div_quizzer, div_ender, div_leaderboard, btn_start,
 txt_question, btn_answer1, btn_answer2, btn_answer3, btn_answer4, txt_output,
 txt_finalscore, in_username, btn_submit;
 lnk_hs = document.getElementById("lnk_hs");
@@ -77,6 +76,7 @@ txt_timer = document.getElementById("txt_timer");
 div_starter = document.getElementById("starter");
 div_quizzer = document.getElementById("quizzer");
 div_ender = document.getElementById("ender");
+div_leaderboard = document.getElementById("leaderboard");
 btn_start = document.getElementById("btn_start");
 txt_question = document.getElementById("txt_question");
 btn_answer1 = document.getElementById("btn_answer1");
@@ -94,8 +94,13 @@ btn_submitScore = document.getElementById("btn_submitScore");
 function startQuiz()
 {
   div_starter.style.display = "none"; // Hide starter div
-  div_quizzer.style.display = "flex"; // Show quizzer div
-  quizUser(getQuiz);
+  div_quizzer.style.display = "flex"; // Show quizzer div which had default of flex
+  questionNum = 1;
+  quiz = getQuiz(5);
+  timer = 60.000;
+  txt_timer.innerHTML = timer.toFixed(3);
+  console.log(quiz);
+  quizUser();
 }
 
 /**
@@ -120,21 +125,49 @@ function getQuiz(numQuestions)
 
 /**
  * quizzes the user and then passes the final score/calls endQuiz
- * @param  {Array} quiz the question objects to ask the user
  * @return {undefined}      calls endQuiz, no return
  */
-function quizUser(quiz)
+function quizUser() // TODO Implement actual timer
 {
-  console.log(typeof(quiz));
-  /** @type {float} Timer/score */
-  let timer = 60.000;
-  // TODO timer/quiz user
-  endQuiz(timer);
+  if (questionNum > 5)
+  {
+    endQuiz(txt_timer.innerHTML);
+    return;
+  }
+
+  // Get question and populate relevent text in quizzer
+  let question = quiz[questionNum-1];
+  txt_question.innerHTML = question.q;
+  btn_answer1.innerHTML = question.o[0];
+  btn_answer2.innerHTML = question.o[1];
+  btn_answer3.innerHTML = question.o[2];
+  btn_answer4.innerHTML = question.o[3];
+}
+
+/**
+ * check if user clicked correct Answer
+ * @param  {number} option the option number that the user clicks, 0-3
+ * @return {undefined}        n/a
+ */
+function answer(option)
+{
+  if (quiz[questionNum-1].a == option) // If answers correctly, add to timer and move on
+  {
+    txt_output.innerHTML = "Correct!";
+    txt_timer.innerHTML = (parseInt(txt_timer.innerHTML) + 5).toFixed(3);
+    questionNum++;
+    quizUser();
+  }
+  else // If answer incorrectly, subtract from timer
+  {
+    txt_output.innerHTML = "Wrong...";
+    txt_timer.innerHTML = (parseInt(txt_timer.innerHTML) - 5).toFixed(3);
+  }
 }
 
 /**
  * Hides quizzer, shows ender, displays final score to username
- * @param  {Number} finalScore users final scored
+ * @param  {Number} finalScore users final score
  * @return {undefined}
  */
 function endQuiz(finalScore)
@@ -142,17 +175,47 @@ function endQuiz(finalScore)
   div_quizzer.style.display = "none"; // Hide quizzer after quiz
   div_ender.style.display = "initial"; // Show ender
 
-  userFinalScore = finalScore.toFixed(3);
-  txt_finalScore.innerHTML = userFinalScore;
+  txt_finalScore.innerHTML = finalScore;
 }
 
 function submitScore()
 {
+  let userFinalScore = txt_finalScore.innerHTML; // Fetch user final score
   let username = in_username.value; // Get username
   if (username == "") // Validate that username isn't blank
     alert("Please enter a username.");
-  else {}
-    // TODO save score to leaderboard
+  // Save score to leaderboard
+  var leaderboard = window.localStorage;
+  leaderboard.setItem(username, userFinalScore)
+  showLeaderboard(); // Show leaderboard
+
+}
+
+function showLeaderboard()
+{
+  if (div_quizzer.style.display == "flex") // if user is taking quiz, do not show Leaderboard
+  {
+    alert("Finish your quiz!");
+    return;
+  }
+  div_starter.style.display = "none";
+  div_quizzer.style.display = "none";
+  div_ender.style.display = "none";
+  div_leaderboard.style.display = "grid" // display leaderboard with default, grid
+
+  // TODO add items to leaderboard
+}
+
+function goHome()
+{
+  div_leaderboard.style.display = "none";
+  div_starter.style.display = "flex"; // from ../css/style.css - default of "flex"
+}
+
+function resetLeaderboard()
+{
+  var leaderboard = window.localStorage;
+  leaderboard.clear();
 }
 
 // MAIN LOGIC
@@ -160,5 +223,6 @@ function submitScore()
 // Hide Quizer and Ender from the user
 div_quizzer.style.display = "none"; // from ../css/style.css - default of "flex"
 div_ender.style.display = "none";
+div_leaderboard.style.display = "none"; // from ../css/style.css - default of "grid"
 
 // Listen to start quiz

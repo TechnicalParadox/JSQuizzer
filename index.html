@@ -10,8 +10,8 @@
 <body>
 <!-- Header with link to high scores & a timer -->
 <header>
-  <a id="lnk_hs" href="">View high scores</a><!-- TODO link to leaderboard -->
-  <p class="timer">Time: <span id="txt_timer">60.000</span></p>
+  <a id="lnk_hs" onclick="showLeaderboard()">View high scores</a><!-- TODO link to leaderboard -->
+  <p class="timer">Time: <span id="txt_timer">0.000</span></p>
 </header>
 
 <!-- Main content where user is shown pre-quiz message or quiz -->
@@ -29,20 +29,33 @@
   <!-- Quiz the user (hidden by default w JS) -->
   <div id="quizzer">
     <h1 id="txt_question">QUESTION</h1>
-    <button id="btn_answer1">BUTTON 1</button>
-    <button id="btn_answer2">BUTTON 2</button>
-    <button id="btn_answer3">BUTTON 3</button>
-    <button id="btn_answer4">BUTTON 4</button>
+    <button id="btn_answer1" onclick="answer(0)">BUTTON 1</button>
+    <button id="btn_answer2" onclick="answer(1)">BUTTON 2</button>
+    <button id="btn_answer3" onclick="answer(2)">BUTTON 3</button>
+    <button id="btn_answer4" onclick="answer(3)">BUTTON 4</button>
     <hr>
-    <h2 id="txt_output">OUTPUT</h2>
+    <h2 id="txt_output"></h2>
   </div>
 
   <!-- End the quiz (hidden by default w JS) -->
   <div id="ender">
     <h1>Finished!</h1>
-    <p>Your final score is: <span id="txt_finalScore">XXX</span></p>
+    <p>Your final score is: <span id="txt_finalScore">XX.XXX</span></p>
     <input id="in_username" placeholder="username"></input>
     <button id="btn_submitScore" onclick="submitScore()">Submit</button>
+  </div>
+
+  <!-- Leaderboard (hidden by default w JS) -->
+  <div id="leaderboard">
+    <h1>Leaderboard</h1>
+    <div id="leaderboard-list">
+        <h3 class="leaderboard-item">1. SCORE - USERNAME</h3>
+        <h3 class="leaderboard-item">2. SCORE - USERNAME</h3>
+    </div>
+    <div class="leaderboard-btns">
+      <button onclick="goHome()">Go Back</button>
+      <button onclick="resetLeaderboard()">Reset</button>
+    </div>
   </div>
 </main>
 
