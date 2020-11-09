@@ -92,6 +92,7 @@ btn_submitScore = document.getElementById("btn_submitScore");
 
 // FUNCTIONS
 
+/** Start the quiz for the user and then calls quizUser() */
 function startQuiz()
 {
   div_starter.style.display = "none"; // Hide starter div
@@ -100,7 +101,6 @@ function startQuiz()
   quiz = getQuiz(5);
   timer = 60.000;
   txt_timer.innerHTML = timer.toFixed(3);
-  console.log(quiz);
   quizUser();
 }
 
@@ -124,10 +124,7 @@ function getQuiz(numQuestions)
   return quiz;
 }
 
-/**
- * quizzes the user and then passes the final score/calls endQuiz
- * @return {undefined}      calls endQuiz, no return
- */
+/** quizzes the user and then passes the final score/calls endQuiz */
 function quizUser() // TODO Implement actual timer
 {
   if (questionNum > 5)
@@ -179,6 +176,7 @@ function endQuiz(finalScore)
   txt_finalScore.innerHTML = finalScore;
 }
 
+/** Submits uses score/username to the leaderboard */
 function submitScore()
 {
   let userFinalScore = txt_finalScore.innerHTML; // Fetch user final score
@@ -192,6 +190,16 @@ function submitScore()
 
 }
 
+/** depopulates the leaderboardList before its reloaded in another method */
+function unloadLeaderboard()
+{
+  while (div_leaderboardList.hasChildNodes())
+  {
+    div_leaderboardList.removeChild(div_leaderboardList.childNodes[0]);
+  }
+}
+
+/** Hides all other main content divs and displays leaderboard to the user */
 function showLeaderboard()
 {
   if (div_quizzer.style.display == "flex") // if user is taking quiz, do not show Leaderboard
@@ -199,12 +207,14 @@ function showLeaderboard()
     alert("Finish your quiz!");
     return;
   }
+  // Hide all divs other than leaderboard and make sure leaderboard is empty before reloading
   div_starter.style.display = "none";
   div_quizzer.style.display = "none";
   div_ender.style.display = "none";
+  unloadLeaderboard();
   div_leaderboard.style.display = "grid" // display leaderboard with default, grid
 
-  // TODO: create leaderboard items for each key in storage
+  // Load leaderboard from localStorage
   let leaderboard = window.localStorage;
   // get all keys from Leaderboard
   let keys = Object.keys(leaderboard);
@@ -217,29 +227,35 @@ function showLeaderboard()
   // sort scores from high -> low
   scores.sort(function(a,b){return b-a});
   console.log(scores);
-  // pull key value pairs from leaderboard storage in sorted order and add to Leaderboard
 
+  // pull key value pairs from leaderboard storage in sorted order and add to Leaderboard
   var username;
-  for (let x = 0; x < scores.length; x++)
+  for (let x = 0; x < scores.length; x++) // for each entry in leaderboard
   {
-    var entry = document.createElement("H3");
+    // Create leaderboard list item
+    let entry = document.createElement("H3");
     entry.class = "leaderboard-item";
-    username = leaderboard.getItem(scores[x])[1];
-    entry.innerHTML = x+1 +". " + scores[x] + " - " + username;
-    div_leaderboardList.appendChild(entry);
+    // Get username from leaderboard by using score/key
+    username = leaderboard.getItem(scores[x].toFixed(3));
+    // Populate leaderboard list item (H3) with place #, score (X.XXX), and username
+    entry.innerHTML = x+1 +". " + scores[x].toFixed(3) + " - " + username;
+    div_leaderboardList.appendChild(entry); // append leaderboard list item to leaderboard
   }
 }
 
+/** send user back to starter div */
 function goHome()
 {
   div_leaderboard.style.display = "none";
   div_starter.style.display = "flex"; // from ../css/style.css - default of "flex"
 }
 
+/** resets the leaderboard storage and calls goHome() */
 function resetLeaderboard()
 {
   var leaderboard = window.localStorage;
   leaderboard.clear();
+  goHome();
 }
 
 // MAIN LOGIC
@@ -248,5 +264,3 @@ function resetLeaderboard()
 div_quizzer.style.display = "none"; // from ../css/style.css - default of "flex"
 div_ender.style.display = "none";
 div_leaderboard.style.display = "none"; // from ../css/style.css - default of "grid"
-
-// Listen to start quiz
