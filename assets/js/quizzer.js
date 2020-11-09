@@ -2,6 +2,8 @@
 /** @type {Array} An array of objects that each contain a question, options,
 answer key, and function to pull the answer string */
 var questions;
+/** @type {Number}  contains the ID of the timer we set so it can be stopped later */
+var timerInterval;
 
 
 var quiz, questionNum, timer;
@@ -106,8 +108,20 @@ function startQuiz()
   questionNum = 1;
   quiz = getQuiz(5);
   timer = 60.000;
-  txt_timer.innerHTML = timer.toFixed(3);
+  startTimer();
+  txt_timer.innerHTML = timer.toFixed(2);
   quizUser();
+}
+
+/** Start a timer that updates every 10ms and update the HTML to display */
+function startTimer()
+{
+  timerInterval = setInterval(function()
+  {
+    console.log(timer);
+    timer -= .01;
+    txt_timer.innerHTML = timer.toFixed(2);
+  }, 10);
 }
 
 /**
@@ -135,7 +149,7 @@ function quizUser() // TODO Implement actual timer
 {
   if (questionNum > 5)
   {
-    endQuiz(txt_timer.innerHTML);
+    endQuiz(timer.toFixed(2));
     return;
   }
 
@@ -158,14 +172,14 @@ function answer(option)
   if (quiz[questionNum-1].a == option) // If answers correctly, add to timer and move on
   {
     txt_output.innerHTML = "Correct!";
-    txt_timer.innerHTML = (parseInt(txt_timer.innerHTML) + 5).toFixed(3);
+    timer += 5;
     questionNum++;
     quizUser();
   }
   else // If answer incorrectly, subtract from timer
   {
     txt_output.innerHTML = "Wrong...";
-    txt_timer.innerHTML = (parseInt(txt_timer.innerHTML) - 5).toFixed(3);
+    timer -= 5;
   }
 }
 
@@ -176,6 +190,9 @@ function answer(option)
  */
 function endQuiz(finalScore)
 {
+  // Stop the timerInterval
+  clearInterval(timerInterval);
+
   div_quizzer.style.display = "none"; // Hide quizzer after quiz
   div_ender.style.display = "initial"; // Show ender
 
@@ -247,9 +264,9 @@ function showLeaderboard()
     let entry = document.createElement("H3");
     entry.class = "leaderboard-item";
     // Get username from leaderboard by using score/key
-    username = leaderboard.getItem(scores[x].toFixed(3));
-    // Populate leaderboard list item (H3) with place #, score (X.XXX), and username
-    entry.innerHTML = x+1 +". " + scores[x].toFixed(3) + " - " + username;
+    username = leaderboard.getItem(scores[x].toFixed(2));
+    // Populate leaderboard list item (H3) with place #, score (xX.XX), and username
+    entry.innerHTML = x+1 +". " + scores[x].toFixed(2) + " - " + username;
     div_leaderboardList.appendChild(entry); // append leaderboard list item to leaderboard
   }
 }
