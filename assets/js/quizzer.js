@@ -109,19 +109,18 @@ function startQuiz()
   quiz = getQuiz(5);
   timer = 60.000;
   startTimer();
-  txt_timer.innerHTML = timer.toFixed(2);
+  txt_timer.innerHTML = timer.toFixed(3);
   quizUser();
 }
 
-/** Start a timer that updates every 10ms and update the HTML to display */
+/** Start a timer that updates every ms and update the HTML to display */
 function startTimer()
 {
   timerInterval = setInterval(function()
   {
-    console.log(timer);
-    timer -= .01;
-    txt_timer.innerHTML = timer.toFixed(2);
-  }, 10);
+    timer -= .001;
+    txt_timer.innerHTML = timer.toFixed(3);
+  }, 1);
 }
 
 /**
@@ -149,7 +148,7 @@ function quizUser() // TODO Implement actual timer
 {
   if (questionNum > 5)
   {
-    endQuiz(timer.toFixed(2));
+    endQuiz(timer.toFixed(3));
     return;
   }
 
@@ -196,6 +195,7 @@ function endQuiz(finalScore)
   div_quizzer.style.display = "none"; // Hide quizzer after quiz
   div_ender.style.display = "initial"; // Show ender
 
+  txt_timer.innerHTML = finalScore;
   txt_finalScore.innerHTML = finalScore;
   in_username.value= ""; // Make sure username field is empty
 }
@@ -264,9 +264,9 @@ function showLeaderboard()
     let entry = document.createElement("H3");
     entry.class = "leaderboard-item";
     // Get username from leaderboard by using score/key
-    username = leaderboard.getItem(scores[x].toFixed(2));
+    username = leaderboard.getItem(scores[x].toFixed(3));
     // Populate leaderboard list item (H3) with place #, score (xX.XX), and username
-    entry.innerHTML = x+1 +". " + scores[x].toFixed(2) + " - " + username;
+    entry.innerHTML = x+1 +". " + scores[x].toFixed(3) + " - " + username;
     div_leaderboardList.appendChild(entry); // append leaderboard list item to leaderboard
   }
 }
