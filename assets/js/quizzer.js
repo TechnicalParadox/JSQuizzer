@@ -170,14 +170,14 @@ function answer(option)
 {
   if (quiz[questionNum-1].a == option) // If answers correctly, add to timer and move on
   {
-    txt_output.innerHTML = "Correct!";
+    txt_output.innerHTML = "Correct! +5 Seconds";
     timer += 5;
     questionNum++;
     quizUser();
   }
   else // If answer incorrectly, subtract from timer
   {
-    txt_output.innerHTML = "Wrong...";
+    txt_output.innerHTML = "Wrong... -5 Seconds";
     timer -= 5;
   }
 }
@@ -254,7 +254,6 @@ function showLeaderboard()
   }
   // sort scores from high -> low
   scores.sort(function(a,b){return b-a});
-  console.log(scores);
 
   // pull key value pairs from leaderboard storage in sorted order and add to Leaderboard
   var username;
