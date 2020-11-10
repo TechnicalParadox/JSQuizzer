@@ -119,6 +119,11 @@ function startTimer()
 {
   timerInterval = setInterval(function()
   {
+    if (timer <= 0)
+    {
+      endQuiz("0.00");
+      return;
+    }
     timer -= .01;
     txt_timer.innerHTML = timer.toFixed(2);
   }, 1);
