@@ -126,7 +126,7 @@ function startTimer()
     }
     timer -= .01;
     txt_timer.innerHTML = timer.toFixed(2);
-  }, 1);
+  }, 1000 * .01);
 }
 
 /**
